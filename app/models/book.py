@@ -7,7 +7,7 @@ class Book(db.Model):
     description: Mapped[str]
 
 
-# class Book:
+# class Book:``
 #     def __init__(self, id, title, description):
 #         self.id = id
 #         self.title = title

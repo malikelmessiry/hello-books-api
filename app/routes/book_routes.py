@@ -23,8 +23,19 @@ def create_book():
 
 @books_bp.get("")
 def get_all_books():
+    query = db.select(Book)
 
-    query = db.select(Book).order_by(Book.id)
+    title_param = request.args.get("title")
+    if title_param:
+        query = query.where(Book.title.ilike(f"%{title_param}%"))
+    # else:
+    #     query = db.select(Book).order_by(Book.id)
+    
+    description_param = request.args.get("description")
+    if description_param:
+        query = query.where(Book.description.ilike(f"%{description_param}%"))
+
+    query = query.order_by(Book.id)
     books = db.session.scalars(query)
     # We could also write the line above as:
     # books = db.session.execute(query).scalars()
@@ -51,22 +62,6 @@ def get_one_book(book_id):
         "description": book.description
     }
 
-def validate_book(book_id):
-    try:
-        book_id = int(book_id)
-    except:
-        response = {"message": f"book {book_id} invalid"}
-        abort(make_response(response, 400))
-
-    query = db.select(Book).where(Book.id == book_id)
-    book = db.session.scalar(query)
-
-    if not book:
-        response = {"message": f"book {book_id} not found"}
-        abort(make_response(response, 404))
-    
-    return book
-
 @books_bp.put("/<book_id>")
 def update_book(book_id):
     book = validate_book(book_id)
@@ -86,6 +81,22 @@ def delete_book(book_id):
     db.session.commit()
 
     return Response(status=204, mimetype="application/json")
+
+def validate_book(book_id):
+    try:
+        book_id = int(book_id)
+    except:
+        response = {"message": f"book {book_id} invalid"}
+        abort(make_response(response, 400))
+
+    query = db.select(Book).where(Book.id == book_id)
+    book = db.session.scalar(query)
+
+    if not book:
+        response = {"message": f"book {book_id} not found"}
+        abort(make_response(response, 404))
+    
+    return book
 
 # @books_bp.get("/<book_id>")
 # def get_one_book(book_id):
