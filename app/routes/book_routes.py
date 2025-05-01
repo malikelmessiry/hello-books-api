@@ -71,7 +71,7 @@ def delete_book(book_id):
     db.session.delete(book)
     db.session.commit()
 
-    return Resposnse(status=204, mimetype="application/json")
+    return Response(status=204, mimetype="application/json")
 
 
 # @books_bp.get("/<book_id>")
