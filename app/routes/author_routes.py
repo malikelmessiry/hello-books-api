@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, make_response, request, Response
 from app.models.author import Author
-from app.models.book import Book
+# from app.models.book import Book
 from app.routes.route_utilities import validate_model, create_model, get_models_with_filters
 from ..db import db
 
@@ -27,6 +27,8 @@ def create_caretaker():
 # route 3
 @bp.post("/<id>/books")
 def create_book_with_author_id(id):
+    from app.models.book import Book
+
     author = validate_model(Author, id)
     request_body = request.get_json()
     request_body["author_id"] = author.id

@@ -6,7 +6,7 @@ from ..models.book import Book
 class Author(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str]
-    cats: Mapped[list["Book"]] = relationship(back_populates="author")
+    books: Mapped[list["Book"]] = relationship(back_populates="author")
 
     def to_dict(self):
         author_as_dict = {
