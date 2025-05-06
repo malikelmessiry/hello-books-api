@@ -19,3 +19,18 @@ def create_caretaker():
     db.session.commit()
 
     return new_author.to_dict(), 201
+
+@bp.get("")
+def get_all_authors():
+    query = db.select(Author)
+
+    name_param = request.args.get("name")
+    if name_param:
+        query = query.where(Author.name.ilike(f"%{name_param}%"))
+
+    authors = db.session.scalars(query)
+
+    authors_response = []
+    for author in authors:
+        authors_response.append(author.to_dict())
+    return authors_response
