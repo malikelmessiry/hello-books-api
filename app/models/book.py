@@ -13,7 +13,8 @@ class Book(db.Model):
     @classmethod
     def from_dict(cls, book_data):
         new_book = Book(title=book_data["title"],
-                        description=book_data["description"])
+                        description=book_data["description"],
+                        author_id=book_data.get("author_id", None))
         return new_book
 
     def to_dict(self):
@@ -21,6 +22,7 @@ class Book(db.Model):
         book_as_dict["id"] = self.id
         book_as_dict["title"] = self.title
         book_as_dict["description"] = self.description
+        book_as_dict["caretaker"] = self.author.name if self.author_id else None
 
         return book_as_dict
     
