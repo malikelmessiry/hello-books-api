@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from ..db import db
+from ..models.book import Book
 # from typing import Optional
 
 class Author(db.Model):
