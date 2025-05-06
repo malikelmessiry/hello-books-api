@@ -2,6 +2,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
 from ..db import db
 from typing import Optional
+from ..models.author import Author
 
 class Book(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
