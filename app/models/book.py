@@ -19,4 +19,5 @@ class Book(db.Model):
         book_as_dict["description"] = self.description
 
         return book_as_dict
+    
 
