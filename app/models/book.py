@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from __future__ import annotations
 from sqlalchemy import ForeignKey
 from ..db import db
 from typing import Optional
+
 # from ..models.author import Author
 
 class Book(db.Model):
@@ -9,7 +11,7 @@ class Book(db.Model):
     title: Mapped[str]
     description: Mapped[str]
     author_id: Mapped[Optional[int]] = mapped_column(ForeignKey("author.id"))
-    author: Mapped[Optional["Author"]] = relationship(back_populates="books")
+    author: Mapped[Optional["Author"]] = relationship("Author", back_populates="books")
 
     @classmethod
     def from_dict(cls, book_data):
