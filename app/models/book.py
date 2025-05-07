@@ -2,7 +2,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from __future__ import annotations
 from sqlalchemy import ForeignKey
 from ..db import db
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
+if TYPE_CHECKING:
+    from app.models.author import Author
 
 # from ..models.author import Author
 
@@ -11,7 +13,7 @@ class Book(db.Model):
     title: Mapped[str]
     description: Mapped[str]
     author_id: Mapped[Optional[int]] = mapped_column(ForeignKey("author.id"))
-    author: Mapped[Optional["Author"]] = relationship("Author", back_populates="books")
+    author: Mapped[list["Author"]] = relationship("Author", back_populates="books")
 
     @classmethod
     def from_dict(cls, book_data):
