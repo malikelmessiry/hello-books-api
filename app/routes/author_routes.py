@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, make_response, request, Response
 from app.models.author import Author
-# from app.models.book import Book
+from app.models.book import Book
 from app.routes.route_utilities import validate_model, create_model, get_models_with_filters
 from ..db import db
 
@@ -25,11 +25,10 @@ def create_author():
     # return new_author.to_dict(), 201
 
 # route 3
-@bp.post("/<id>/books")
-def create_book_with_author_id(id):
-    from app.models.book import Book
+@bp.post("/<author_id>/books")
+def create_book_with_author_id(author_id):
 
-    author = validate_model(Author, id)
+    author = validate_model(Author, author_id)
     request_body = request.get_json()
     request_body["author_id"] = author.id
 
@@ -64,9 +63,8 @@ def get_all_authors():
     # return authors_response
 
 # route 4
-@bp.get("/<id>/books")
-def get_all_authors_books(id):
-    author = validate_model(Author, id)
-    books = [book.to_dict() for book in author.books]
-
-    return books
+@bp.get("/<author_id>/books")
+def get_all_authors_books(author_id):
+    author = validate_model(Author, author_id)
+    
+    return [book.to_dict() for book in author.books]

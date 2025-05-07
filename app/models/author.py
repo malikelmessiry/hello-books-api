@@ -3,7 +3,7 @@ from ..db import db
 # from ..models.book import Book
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from app.models.book import Book
+    from .book import Book
 
 class Author(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
