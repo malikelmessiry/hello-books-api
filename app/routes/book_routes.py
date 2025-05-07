@@ -50,9 +50,6 @@ def get_all_books():
 @bp.get("/<book_id>")
 def get_one_book(book_id):
     book = validate_model(Book, book_id)
-    
-    # query = db.select(Book).where(Book.id == book_id)
-    # book = db.session.scalar(query)
 
     return book.to_dict()
 

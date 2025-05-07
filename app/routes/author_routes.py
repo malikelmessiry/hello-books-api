@@ -8,7 +8,7 @@ bp = Blueprint("authors_bp", __name__, url_prefix="/authors")
 
 # route 1
 @bp.post("")
-def create_caretaker():
+def create_author():
     request_body = request.get_json()
 
     return create_model(Author, request_body)
