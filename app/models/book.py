@@ -20,7 +20,8 @@ class Book(db.Model):
     def from_dict(cls, book_data):
         new_book = Book(title=book_data["title"],
                         description=book_data["description"],
-                        author_id=book_data.get("author_id", None))
+                        author_id=book_data.get("author_id", None),
+                        genres=book_data.get("genres, None"))
         return new_book
 
     def to_dict(self):

@@ -22,3 +22,5 @@ class Author(db.Model):
     def from_dict(cls, author_data):
         new_author = cls(name=author_data["name"])
         return new_author
+    
+    

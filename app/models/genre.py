@@ -21,3 +21,4 @@ class Genre(db.Model):
         new_genre = cls(name=genre_data["name"])
 
         return new_genre
+    
