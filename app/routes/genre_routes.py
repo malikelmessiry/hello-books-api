@@ -22,3 +22,9 @@ def create_book_with_specific_genre(genre_id):
     request_body = request.get_json()
     request_body["genres"] = [genre]
     return create_model(Book, request_body)
+
+@bp.get("/<genre_id>/books")
+def get_books_by_genre(genre_id):
+    genre = validate_model(Genre, genre_id)
+    response = [book.to_dict() for book in genre.books]
+    return response

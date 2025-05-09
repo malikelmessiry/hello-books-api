@@ -73,27 +73,3 @@ def delete_book(book_id):
 
     return Response(status=204, mimetype="application/json")
 
-
-# @books_bp.get("/<book_id>")
-# def get_one_book(book_id):
-#     book = validate_book(book_id)
-
-#     return {
-#         "id": book.id,
-#         "title": book.title,
-#         "description": book.description,
-#     }
-
-# def validate_book(book_id):
-#     try:
-#         book_id = int(book_id)
-#     except:
-#         response = {"message": f"book {book_id} invalid"}
-#         abort(make_response(response , 400))
-
-#     for book in books:
-#         if book.id == book_id:
-#             return book
-
-#     response = {"message": f"book {book_id} not found"}
-#     abort(make_response(response, 404))
